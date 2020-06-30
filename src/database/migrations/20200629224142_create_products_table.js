@@ -11,6 +11,4 @@ exports.up = knex => knex.schema.createTable('products', table => {
     table.timestamps(true, true);
 });
   
-exports.down = function(knex) {
-  
-};
+exports.down = knex => knex.schema.dropTable('products');
