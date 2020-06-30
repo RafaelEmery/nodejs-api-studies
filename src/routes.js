@@ -32,9 +32,10 @@ routes.get('/api', (req, res) => {
 
 routes
     .get('/products', ProductController.index)
+    .get('products/:id', ProductController.show)
     .post('/products', ProductController.create)
     .put('/products/:id', ProductController.update)
-    .delete('/products/:id', ProductController.delete)
+    .delete('/products/:id', ProductController.delete);
 
 module.exports = routes;
 

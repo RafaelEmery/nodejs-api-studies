@@ -3,9 +3,19 @@ const knex = require('../database');
 module.exports = {
 
     async index(req, res) {
-        const results = await knex('products').select();
+        const results = await knex('products')
+                                .select('id', 'title', 'description', 'value', 'payment_method')
+                                .where('available', true);
 
         return res.json(results);
+    },
+
+    //Error
+    async show(req, res) {
+        const { id } = req.params;
+        const result = await knex('products').where({ id });
+
+        return res.json(result);
     },
 
     async create(req, res) {
