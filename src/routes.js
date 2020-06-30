@@ -30,7 +30,7 @@ routes.get('/api', (req, res) => {
          });
 });
 
-// routes.get('/products', ProductController);
+routes.get('/products', ProductController);
 
 module.exports = routes;
 
