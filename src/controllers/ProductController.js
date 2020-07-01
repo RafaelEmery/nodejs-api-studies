@@ -47,9 +47,10 @@ module.exports = {
 
     async update(req, res) {
         const { id } = req.params;
-        const { title, description, value, available, payment_method } = req.body;
+        const { user_id, title, description, value, available, payment_method } = req.body;
 
         await knex('products').where({ id }).update({
+            user_id: user_id,
             title: title,
             description: description,
             value: value,
@@ -71,6 +72,7 @@ module.exports = {
         //product.available and product['available'] == undefined
         console.log(product);
 
+        //Always goes this way...
         if (product.available) {
             await knex('products').update('available', false);
 

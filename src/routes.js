@@ -3,10 +3,12 @@ const routes = express.Router();
 
 //Importing the Controllers
 const ProductController = require('./controllers/ProductController');
+const UserController = require('./controllers/UserController');
 
 //Importing the APIs
 const FakeDataAPI = require('./services/FakeDataAPI');
 
+//Basic testing route
 routes.get('/', (req, res) => {
     return res.json({
         name: "Learning NodeJS",
@@ -29,6 +31,11 @@ routes
     .put('/products/:id', ProductController.update)
     .put('/products/:id/available', ProductController.updateAvailable)
     .delete('/products/:id', ProductController.delete);
+
+routes
+    .get('/users', UserController.index)
+    .post('/users', UserController.create)
+    .delete('/users', UserController.delete);
 
 module.exports = routes;
 
