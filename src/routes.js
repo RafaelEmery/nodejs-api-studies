@@ -35,7 +35,7 @@ routes
 routes
     .get('/users', UserController.index)
     .post('/users', UserController.create)
-    .delete('/users', UserController.delete);
+    .delete('/users/:id', UserController.delete);
 
 module.exports = routes;
 

@@ -4,7 +4,7 @@ module.exports = {
 
     async index(req, res) {
         const results = await knex('users')
-                                .select('id name status rating');
+                                .select('id', 'name', 'status', 'rating');
 
         return res.json(results);
     },
@@ -13,11 +13,11 @@ module.exports = {
         const { name, email, password, status, rating } = req.body;
 
         await knex('users').insert({
-            name,
-            email,
-            password,
-            status,
-            rating
+            name: name,
+            email: email,
+            password: password,
+            status: status,
+            rating: rating,
         });
 
         return res.send({
