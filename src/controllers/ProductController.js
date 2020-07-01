@@ -5,12 +5,13 @@ module.exports = {
     async index(req, res) {
         const results = await knex('products')
                                 .select('id', 'title', 'description', 'value', 'payment_method')
-                                .where('available', true);
 
         return res.json(results);
     },
 
-    //Need to test
+    //Need to have a function for all products available products (maybe a query)
+
+    //Working but need to think about not having a function for it... Maybe some scope or query stuff
     async orderByExpensive(req, res) {
         const results = await knex('products')
                                 .orderBy('value', 'desc')
@@ -19,7 +20,8 @@ module.exports = {
         return res.json(results);
     },
 
-    //Error
+    //Neet to have a function to order by  cheaper
+
     async show(req, res) {
         const { id } = req.params;
         const result = await knex('products').where({ id });
@@ -60,10 +62,14 @@ module.exports = {
         });
     },
 
-    //Need to test
+    //Wrong (!!!)
     async updateAvailable(req, res) {
         const { id } = req.params;
         const product = await knex('products').where({ id });
+
+        //Need to access the available attribute
+        //product.available and product['available'] == undefined
+        console.log(product);
 
         if (product.available) {
             await knex('products').update('available', false);
@@ -72,7 +78,7 @@ module.exports = {
                 message: "Now your product is not available!"
             })
         }
-        else{
+        else {
             await knex('products').update('available', true);
 
             return res.send({

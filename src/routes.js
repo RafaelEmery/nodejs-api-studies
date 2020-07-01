@@ -24,7 +24,7 @@ routes
 routes
     .get('/products', ProductController.index)
     .get('/products/expensive', ProductController.orderByExpensive)
-    .get('products/:id', ProductController.show)
+    .get('/products/show/:id', ProductController.show)
     .post('/products', ProductController.create)
     .put('/products/:id', ProductController.update)
     .put('/products/:id/available', ProductController.updateAvailable)

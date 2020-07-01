@@ -7,10 +7,12 @@ module.exports = {
             const url = 'https://rafaelemery-fake-data-api.herokuapp.com/shop';
             const results = await axios.get(url);
 
+            //Is returning object Object (?)
+            console.log("Chamando os results" + results);
             return res.json(results);
         } catch (error) {
             res.status(400).send({
-                message: "There's something wrong!",
+                message: "There's something wrong at the products request!",
                 error: error
             })
         }
@@ -24,7 +26,7 @@ module.exports = {
             return res.json(results);
         } catch (error) {
             res.status(400).send({
-                message: "There's something wrong!",
+                message: "There's something wrong at the posts requests!",
                 error: error
             })
         }
