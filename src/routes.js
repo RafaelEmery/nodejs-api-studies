@@ -1,11 +1,11 @@
 const express = require('express');
 const routes = express.Router();
 
-//Consuming API with axios
-const axios = require('axios');
-
 //Importing the Controllers
 const ProductController = require('./controllers/ProductController');
+
+//Importing the APIs
+const FakeDataAPI = require('./services/FakeDataAPI');
 
 routes.get('/', (req, res) => {
     return res.json({
@@ -16,25 +16,18 @@ routes.get('/', (req, res) => {
     });
 });
 
-routes.get('/api', (req, res) => {
-    const url = 'https://rafaelemery-fake-data-api.herokuapp.com/shop';
-    axios.get(url)
-         .then((response) => {
-             return response.data;
-         })
-         .then((data) => {
-             return res.json(data);
-         })
-         .catch((e) => {
-             console.error(e);
-         });
-});
+routes
+    .get('/api/shop', FakeDataAPI.shop)
+    .get('/api/posts', FakeDataAPI.posts)
+    .get('/api/posts/:id/comments', FakeDataAPI.postComments);
 
 routes
     .get('/products', ProductController.index)
+    .get('/products/expensive', ProductController.orderByExpensive)
     .get('products/:id', ProductController.show)
     .post('/products', ProductController.create)
     .put('/products/:id', ProductController.update)
+    .put('/products/:id/available', ProductController.updateAvailable)
     .delete('/products/:id', ProductController.delete);
 
 module.exports = routes;

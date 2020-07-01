@@ -10,6 +10,15 @@ module.exports = {
         return res.json(results);
     },
 
+    //Need to test
+    async orderByExpensive(req, res) {
+        const results = await knex('products')
+                                .orderBy('value', 'desc')
+                                .select('id', 'title', 'description', 'value', 'payment_method');
+
+        return res.json(results);
+    },
+
     //Error
     async show(req, res) {
         const { id } = req.params;
@@ -49,6 +58,27 @@ module.exports = {
         return res.send({
             message: "Product updated!"
         });
+    },
+
+    //Need to test
+    async updateAvailable(req, res) {
+        const { id } = req.params;
+        const product = await knex('products').where({ id });
+
+        if (product.available) {
+            await knex('products').update('available', false);
+
+            return res.send({
+                message: "Now your product is not available!"
+            })
+        }
+        else{
+            await knex('products').update('available', true);
+
+            return res.send({
+                message: "Now your product is available!"
+            })  
+        }
     },
 
     async delete(req, res) {
