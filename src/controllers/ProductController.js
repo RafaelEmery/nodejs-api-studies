@@ -24,16 +24,20 @@ module.exports = {
 
         //If ?available=true get only the available
         if (available) {
-            if (available != 'true') {
-                return res.status(404).send({
-                    message: "Wrong query!"
-                });
+            if (available == 'true') {
+                const results = await knex('products').where('available', true)
+                                                      .select('id', 'title', 'description', 'value', 'payment_method', 'available');
+
+                console.log('Showing only the available products');
+                return res.json(results);
             }
-            const results = await knex('products').where('available', true)
-                                                  .select('id', 'title', 'description', 'value', 'payment_method', 'available');
-        
-            console.log('Showing only the available products');
-            return res.json(results);  
+            if (available == 'false') {
+                const results = await knex('products').where('available', false)
+                                                      .select('id', 'title', 'description', 'value', 'payment_method', 'available');
+
+                console.log('Showing only the NOT available products');
+                return res.json(results);
+            }
         }
 
         if (order) {
@@ -95,31 +99,31 @@ module.exports = {
         });
     },
 
-    //Wrong (!!!)
-    async toggleAvailable(req, res) {
-        const { id } = req.params;
-        const product = await knex('products').where({ id });
+    //Function to toggle available - wrong (!!!)
+    // async toggleAvailable(req, res) {
+    //     const { id } = req.params;
+    //     const product = await knex('products').where({ id });
 
-        //Need to access the available attribute
-        //product.available and product['available'] == undefined
-        console.log(product);
+    //     //Need to access the available attribute
+    //     //product.available and product['available'] == undefined
+    //     console.log(product);
 
-        //Always goes this way...
-        if (product.available) {
-            await knex('products').update('available', false);
+    //     //Always goes this way...
+    //     if (product.available) {
+    //         await knex('products').update('available', false);
 
-            return res.send({
-                message: "Now your product is NOT available!"
-            })
-        }
-        else {
-            await knex('products').update('available', true);
+    //         return res.send({
+    //             message: "Now your product is NOT available!"
+    //         })
+    //     }
+    //     else {
+    //         await knex('products').update('available', true);
 
-            return res.send({
-                message: "Now your product is available!"
-            })  
-        }
-    },
+    //         return res.send({
+    //             message: "Now your product is available!"
+    //         })  
+    //     }
+    // },
 
     async delete(req, res) {
         const { id } = req.params;

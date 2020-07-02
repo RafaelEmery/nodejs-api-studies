@@ -25,9 +25,6 @@ routes
 
 routes
     .get('/products', ProductController.index)
-    // .get('/products/expensive', ProductController.orderByExpensive)
-    // .get('/products/cheap', ProductController.orderByCheaper)
-    // .get('/products/:id/show', ProductController.show)
     .post('/products', ProductController.create)
     .put('/products/:id', ProductController.update)
     .put('/products/:id/toggle', ProductController.toggleAvailable)
@@ -36,6 +33,7 @@ routes
 routes
     .get('/users', UserController.index)
     .post('/users', UserController.create)
+    .put('/users/:id', UserController.update)
     .delete('/users/:id', UserController.delete);
 
 module.exports = routes;
