@@ -113,7 +113,7 @@ module.exports = {
             await knex('products').update('available', false);
 
             return res.send({
-                message: "Now your product is not available!"
+                message: "Now your product is NOT available!"
             })
         }
         else {
