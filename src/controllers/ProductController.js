@@ -4,62 +4,58 @@ module.exports = {
 
     async index(req, res) {
         const { user_id, id, available, order } = req.query;
-        const results = await knex('products')
-                                .select('id', 'title', 'description', 'value', 'payment_method');
 
-        //If ?user_id= get the user's products                        
+        // If ?user_id= get the user's products                        
         if (user_id) {
-            results = await knex('products')
-                                    .where({ user_id })
-                                    .join('users', 'users.id', '=', 'products.user_id')
-                                    .select('products.*', 'users.name');
+            const results = await knex('products').where({ user_id }).join('users', 'users.id', '=', 'products.user_id')
+                                                  .select('users.name', 'products.title', 'products.description', 'products.value');
             
-            console.log('Showing the user ' + id + ' products');
+            console.log('Showing the user (id: ' + user_id + ') products');
             return res.json(results);
         }
 
         //If ?id= get product with query's value
         if (id) {
-            const query = await knex('products')
-                                    .where({ id })
-                                    .join('users', 'users.id', '=', 'products.user_id')
-                                    .select('products.*', 'users.name', 'users.rating', 'users.status');
+            const results = await knex('products').where({ id }).select();
             
-            console.log('Showing the product number ' + id);
-            return res.json(query);
+            console.log('Showing the product (id: ' + id + ')');
+            return res.json(results);
         }
 
         //If ?available=true get only the available
         if (available) {
-            results = await knex('products')
-                                .where('available', true)
-                                .select('id', 'title', 'description', 'value', 'payment_method');
+            if (available != 'true') {
+                return res.status(404).send({
+                    message: "Wrong query!"
+                });
+            }
+            const results = await knex('products').where('available', true)
+                                                  .select('id', 'title', 'description', 'value', 'payment_method', 'available');
         
             console.log('Showing only the available products');
             return res.json(results);  
         }
 
-        //If ?order=expensive get the desc order
-        if (order == 'expensive') {
-            results = await knex('products')
-                                .orderBy('value', 'desc')
-                                .select('id', 'title', 'description', 'value', 'payment_method');
-        
-            console.log('Showing products by most expensive');
-            return res.json(results);                                
-        }
-
-        //If ?order=cheaper get the desc order
-        if (order == 'cheaper') {
-            results = await knex('products')
-                                .orderBy('value', 'asc')
-                                .select('id', 'title', 'description', 'value', 'payment_method');
-                                
-            console.log('Showing the product by cheaper');
-            return res.json(results); 
+        if (order) {
+            if (order == 'expensive') {
+                const results = await knex('products').orderBy('value', 'desc')
+                                                      .select('id', 'title', 'description', 'value', 'payment_method');
+            
+                console.log('Showing products by ' + order);
+                return res.json(results);  
+            }
+            if (order == 'cheaper') {
+                const results = await knex('products').orderBy('value', 'asc')
+                                                      .select('id', 'title', 'description', 'value', 'payment_method'); 
+            
+                console.log('Showing products by ' + order);
+                return res.json(results);
+            }
         }
         
         //If is only /products with no query
+        const results = await knex('products').select('id', 'title', 'description', 'value', 'payment_method');
+
         console.log('Showing all products');
         return res.json(results);
     },
