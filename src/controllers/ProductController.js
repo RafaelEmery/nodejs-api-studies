@@ -3,36 +3,72 @@ const knex = require('../database');
 module.exports = {
 
     async index(req, res) {
+        const { user_id, id, available, order } = req.query;
         const results = await knex('products')
-                                .select('id', 'title', 'description', 'value', 'payment_method')
-
-        return res.json(results);
-    },
-
-    //Need to have a function for all products available products (maybe a query)
-
-    //Working but need to think about not having a function for it... Maybe some scope or query stuff
-    async orderByExpensive(req, res) {
-        const results = await knex('products')
-                                .orderBy('value', 'desc')
                                 .select('id', 'title', 'description', 'value', 'payment_method');
 
+        //If ?user_id= get the user's products                        
+        if (user_id) {
+            results = await knex('products')
+                                    .where({ user_id })
+                                    .join('users', 'users.id', '=', 'products.user_id')
+                                    .select('products.*', 'users.name');
+            
+            console.log('Showing the user ' + id + ' products');
+            return res.json(results);
+        }
+
+        //If ?id= get product with query's value
+        if (id) {
+            const query = await knex('products')
+                                    .where({ id })
+                                    .join('users', 'users.id', '=', 'products.user_id')
+                                    .select('products.*', 'users.name', 'users.rating', 'users.status');
+            
+            console.log('Showing the product number ' + id);
+            return res.json(query);
+        }
+
+        //If ?available=true get only the available
+        if (available) {
+            results = await knex('products')
+                                .where('available', true)
+                                .select('id', 'title', 'description', 'value', 'payment_method');
+        
+            console.log('Showing only the available products');
+            return res.json(results);  
+        }
+
+        //If ?order=expensive get the desc order
+        if (order == 'expensive') {
+            results = await knex('products')
+                                .orderBy('value', 'desc')
+                                .select('id', 'title', 'description', 'value', 'payment_method');
+        
+            console.log('Showing products by most expensive');
+            return res.json(results);                                
+        }
+
+        //If ?order=cheaper get the desc order
+        if (order == 'cheaper') {
+            results = await knex('products')
+                                .orderBy('value', 'asc')
+                                .select('id', 'title', 'description', 'value', 'payment_method');
+                                
+            console.log('Showing the product by cheaper');
+            return res.json(results); 
+        }
+        
+        //If is only /products with no query
+        console.log('Showing all products');
         return res.json(results);
-    },
-
-    //Neet to have a function to order by  cheaper
-
-    async show(req, res) {
-        const { id } = req.params;
-        const result = await knex('products').where({ id });
-
-        return res.json(result);
     },
 
     async create(req, res) {
-        const { title, description, value, available, payment_method } = req.body;
+        const { user_id, title, description, value, available, payment_method } = req.body;
 
         await knex('products').insert({
+            user_id: user_id,
             title: title,
             description: description,
             value: value,
@@ -64,7 +100,7 @@ module.exports = {
     },
 
     //Wrong (!!!)
-    async updateAvailable(req, res) {
+    async toggleAvailable(req, res) {
         const { id } = req.params;
         const product = await knex('products').where({ id });
 

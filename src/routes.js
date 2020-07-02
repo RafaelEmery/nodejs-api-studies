@@ -25,11 +25,12 @@ routes
 
 routes
     .get('/products', ProductController.index)
-    .get('/products/expensive', ProductController.orderByExpensive)
-    .get('/products/show/:id', ProductController.show)
+    // .get('/products/expensive', ProductController.orderByExpensive)
+    // .get('/products/cheap', ProductController.orderByCheaper)
+    // .get('/products/:id/show', ProductController.show)
     .post('/products', ProductController.create)
     .put('/products/:id', ProductController.update)
-    .put('/products/:id/available', ProductController.updateAvailable)
+    .put('/products/:id/toggle', ProductController.toggleAvailable)
     .delete('/products/:id', ProductController.delete);
 
 routes
