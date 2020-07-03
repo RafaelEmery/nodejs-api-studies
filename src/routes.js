@@ -20,8 +20,8 @@ routes.get('/', (req, res) => {
 
 routes
     .get('/api/shop', FakeDataAPI.shop)
-    .get('/api/posts', FakeDataAPI.posts)
-    .get('/api/posts/:id/comments', FakeDataAPI.postComments);
+    // .get('/api/posts', FakeDataAPI.posts)
+    // .get('/api/posts/:id/comments', FakeDataAPI.postComments);
 
 routes
     .get('/products', ProductController.index)

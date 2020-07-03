@@ -2,39 +2,45 @@ const axios = require('axios');
 
 module.exports = {
 
-    async shop(req, res) {
+    async getProducts(message) {
         try {
-            const url = 'https://rafaelemery-fake-data-api.herokuapp.com/shop';
-            const results = await axios.get(url);
-
-            //Is returning object Object (?)
-            console.log("Chamando os results" + results);
-            return res.json(results);
+            console.log(message);
+            console.log('Got it! All the products');
+            return await axios.get('https://rafaelemery-fake-data-api.herokuapp.com/shop');
         } catch (error) {
-            res.status(400).send({
-                message: "There's something wrong at the products request!",
-                error: error
-            })
+            console.error(error);
         }
     },
 
-    async posts(req, res) {
+    async shop(req, res, next) {
         try {
-            const url = 'https://rafaelemery-fake-data-api.herokuapp.com/blog/posts';
-            const results = await axios.get(url);
-
-            return res.json(results);
+            const products = await getProducts();
+        
+            console.log('Showing all products');
+            return res.json(products); 
         } catch (error) {
-            res.status(400).send({
-                message: "There's something wrong at the posts requests!",
-                error: error
-            })
+            next(error);
         }
     },
 
-    async postComments(req, res) {
+    // async getPosts() {
+    //     try {
+    //         return await axios.get(``);
+    //     } catch (error) {
+            
+    //     }
+    // },
 
-    },
+    // async posts(req, res) {
+    //     const posts = await getPosts();
+
+    //     console.log('Showing all posts');
+    //     return res.json(posts);
+    // },
+
+    // async postComments(req, res) {
+
+    // },
 }
 
 // get(req, res) => {
