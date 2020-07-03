@@ -27,7 +27,7 @@ routes
     .get('/products', ProductController.index)
     .post('/products', ProductController.create)
     .put('/products/:id', ProductController.update)
-    .put('/products/:id/toggle', ProductController.toggleAvailable)
+    // .put('/products/:id/toggle', ProductController.toggleAvailable)
     .delete('/products/:id', ProductController.delete);
 
 routes
