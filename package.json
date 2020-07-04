@@ -1,16 +1,18 @@
 {
   "name": "learning-nodejs",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "My personal API for learning NodeJS",
+  "repository": "github:RafaelEmery/learning-nodejs-api",
+  "main": "src/server.js",
   "scripts": {
     "start": "nodemon src/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rafael Emery",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "celebrate": "^12.1.1",
     "express": "^4.17.1",
     "knex": "^0.21.1",
     "pg": "^8.2.1"

@@ -1,9 +1,17 @@
 const express = require('express');
 const app = express();
-const routes = require('./routes');
+
+//Importing all the routes
+const indexRoutes = require('./routes');
+const productsRoutes = require('./routes/products');
+const usersRoutes = require('./routes/users');
 
 app.use(express.json());
-app.use(routes);
+
+//Using all the routes
+app.use('/', indexRoutes);
+app.use('/products', productsRoutes);
+app.use('/users', usersRoutes);
 
 //Catching all errors
 app.use((error, req, res, next) => {  
