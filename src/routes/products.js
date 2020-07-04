@@ -9,13 +9,14 @@ routes
         [Segments.QUERY]: Joi.object().keys({
             user_id: Joi.number(),
             id: Joi.number(),
-            available: Joi.boolean(),
-            order: Joi.string(),    
+            available: Joi.valid('true', 'false'),
+            order: Joi.valid('expensive', 'cheaper'),    
         })
     }), ProductController.index)
 
     .post('/', celebrate({
         [Segments.BODY]: Joi.object().keys({
+            user_id: Joi.number().required(),
             title: Joi.string().required(),
             description: Joi.string().min(15).max(2000),
             value: Joi.number().required(),
@@ -29,11 +30,12 @@ routes
             id: Joi.number().required()
         }),
         [Segments.BODY]: Joi.object().keys({
+            user_id: Joi.number().required(),
             title: Joi.string().required(),
             description: Joi.string().min(15).max(2000),
             value: Joi.number().required(),
             available: Joi.boolean(),
-            payment_method: Joi.string().valid('Cash', 'Credit Card', 'Paypal', 'Gold')
+            payment_method: Joi.string().valid('Cash', 'Credit Card', 'Paypal', 'Gold').required()
         }),
     }), ProductController.update)
 
