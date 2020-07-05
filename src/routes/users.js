@@ -12,7 +12,7 @@ routes
         })
     }), UserController.index)
 
-    .post('/', celebrate({
+    .post('/register', celebrate({
         [Segments.BODY]: Joi.object().keys({
             name: Joi.string(),
             email: Joi.string().email().required(),

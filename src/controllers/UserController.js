@@ -1,4 +1,5 @@
 const knex = require('../database');
+const bcrypt = require('bcrypt');
 
 module.exports = {
 
@@ -36,16 +37,20 @@ module.exports = {
         try {
             const { name, email, password, status, rating } = req.body;
 
+            const hash = bcrypt.hash(password, 10);
+
             await knex('users').insert({
                 name: name,
                 email: email,
-                password: password,
+                password: hash,
                 status: status,
                 rating: rating,
             });
 
             return res.send({
-                message: "User created!"
+                message: "User created!",
+                email: email,
+                password: hash
             });
         } catch (error) {
             next(error)
@@ -80,7 +85,8 @@ module.exports = {
             await knex('users').del().where({ id });
 
             return res.send({
-                message: "User deleted!"
+                message: "User deleted!",
+                id: id
             });
         } catch (error) {
             next(error);
