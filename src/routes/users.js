@@ -12,16 +12,6 @@ routes
         })
     }), UserController.index)
 
-    .post('/register', celebrate({
-        [Segments.BODY]: Joi.object().keys({
-            name: Joi.string(),
-            email: Joi.string().email().required(),
-            password: Joi.string().required(),
-            status: Joi.string().max(150),
-            rating: Joi.number().min(0).max(10.0)
-        })
-    }), UserController.create)
-
     .put('/:id', celebrate({
         [Segments.PARAMS]: Joi.object().keys({
             id: Joi.number().required()

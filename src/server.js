@@ -5,11 +5,13 @@ const app = express();
 const indexRoutes = require('./routes');
 const productsRoutes = require('./routes/products');
 const usersRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
 
 app.use(express.json());
 
 //Using all the routes
 app.use('/', indexRoutes);
+app.use('/', authRoutes);
 app.use('/products', productsRoutes);
 app.use('/users', usersRoutes);
 
