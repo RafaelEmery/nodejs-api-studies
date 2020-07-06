@@ -1,3 +1,5 @@
+const { onUpdateTrigger } = require('../../../knexfile')
+
 exports.up = knex => knex.schema.createTable('products', table => {
     table.increments('id');
 
@@ -10,6 +12,8 @@ exports.up = knex => knex.schema.createTable('products', table => {
     table.enu('payment_method', ['Cash', 'Credit Card', 'Paypal', 'Gold']);
 
     table.timestamps(true, true);
-});
+
+    //Using the procedure (automated) from knexfile.js and custom_functions table
+}).then(() => knex.raw(onUpdateTrigger('products')));
   
 exports.down = knex => knex.schema.dropTableIfExists('products');

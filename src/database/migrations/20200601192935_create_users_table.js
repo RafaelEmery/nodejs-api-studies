@@ -1,3 +1,5 @@
+const { onUpdateTrigger } = require('../../../knexfile')
+
 exports.up = knex => knex.schema.createTable('users', table => {
     table.increments('id');
 
@@ -8,7 +10,9 @@ exports.up = knex => knex.schema.createTable('users', table => {
     table.float('rating').default(0.0);
 
     table.timestamps(true, true);
-});
+    
+    //Using the procedure (automated) from knexfile.js and custom_functions table
+}).then(() => knex.raw(onUpdateTrigger('users')));
   
 exports.down = knex => knex.schema.dropTableIfExists('users');
 

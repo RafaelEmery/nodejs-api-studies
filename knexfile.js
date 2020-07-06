@@ -15,5 +15,13 @@ module.exports = {
     seeds: {
       directory: `${__dirname}/src/database/seeds`
     }
-  }
+  },
+
+  //Used so we don't need to call the procedure (custom_functions table) in every migration
+  onUpdateTrigger: table => `
+    CREATE TRIGGER ${table}_updated_at
+    BEFORE UPDATE ON ${table}
+    FOR EACH ROW
+    EXECUTE PROCEDURE on_update_timestamp();
+  `
 };
