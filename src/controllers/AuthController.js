@@ -3,6 +3,21 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
 
+    //Create a new Login (session)
+    async session(req, res) {
+        const { email, password } = req.body;
+
+        const user = await knex('users').where('email', email).first();
+
+        if (!user) {
+            return res.status(400).send({
+                message: 'This credencials does not match with our users data!'
+            });
+        }
+
+        return res.status(200);
+    },
+
     //Create a new user
     async register(req, res, next) {
         try {

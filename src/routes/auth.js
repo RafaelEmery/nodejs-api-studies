@@ -5,6 +5,8 @@ const { celebrate, Segments, Joi } = require('celebrate');
 const AuthController = require('../controllers/AuthController');
 
 routes
+    .post('/login', AuthController.session)
+    
     .post('/register', celebrate({
         [Segments.BODY]: Joi.object().keys({
             name: Joi.string(),
