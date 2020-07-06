@@ -5,11 +5,13 @@ module.exports = {
     async index(req, res, next) {
         try {
             const { user_id, id, available, order } = req.query;
+            const { page = 1} = req.query;
 
             // If ?user_id= get the user's products                        
             if (user_id) {
-                const results = await knex('products').where({ user_id }).join('users', 'users.id', '=', 'products.user_id')
-                                                    .select('users.name', 'products.title', 'products.description', 'products.value');
+                const results = await knex('products').limit(5).offset((page - 1 ) * 5).where({ user_id })
+                                                      .join('users', 'users.id', '=', 'products.user_id')
+                                                      .select('users.name', 'products.title', 'products.description', 'products.value');
                 
                 console.log('Showing the user (id: ' + user_id + ') products');
                 return res.json(results);
@@ -26,15 +28,15 @@ module.exports = {
             //If ?available=
             if (available) {
                 if (available == 'true') {
-                    const results = await knex('products').where('available', true)
-                                                        .select('id', 'title', 'description', 'value', 'payment_method', 'available');
+                    const results = await knex('products').limit(5).offset((page - 1 ) * 5).where('available', true)
+                                                          .select('id', 'title', 'description', 'value', 'payment_method', 'available');
 
                     console.log('Showing only the available products');
                     return res.json(results);
                 }
                 if (available == 'false') {
-                    const results = await knex('products').where('available', false)
-                                                        .select('id', 'title', 'description', 'value', 'payment_method', 'available');
+                    const results = await knex('products').limit(5).offset((page - 1 ) * 5).where('available', false)
+                                                          .select('id', 'title', 'description', 'value', 'payment_method', 'available');
 
                     console.log('Showing only the NOT available products');
                     return res.json(results);
@@ -44,15 +46,15 @@ module.exports = {
             //If ?order=
             if (order) {
                 if (order == 'expensive') {
-                    const results = await knex('products').orderBy('value', 'desc')
-                                                        .select('id', 'title', 'description', 'value', 'payment_method');
+                    const results = await knex('products').limit(5).offset((page - 1 ) * 5).orderBy('value', 'desc')
+                                                          .select('id', 'title', 'description', 'value', 'payment_method');
                 
                     console.log('Showing products by ' + order);
                     return res.json(results);  
                 }
                 if (order == 'cheaper') {
-                    const results = await knex('products').orderBy('value', 'asc')
-                                                        .select('id', 'title', 'description', 'value', 'payment_method'); 
+                    const results = await knex('products').limit(5).offset((page - 1 ) * 5).orderBy('value', 'asc')
+                                                          .select('id', 'title', 'description', 'value', 'payment_method'); 
                 
                     console.log('Showing products by ' + order);
                     return res.json(results);
@@ -60,10 +62,17 @@ module.exports = {
             }
             
             //If is only /products with no query
-            const results = await knex('products').select('id', 'title', 'description', 'value', 'payment_method');
+            //Showing with pagination (5 per page)
+            const results = await knex('products').limit(5).offset((page - 1 ) * 5)
+                                                  .select('id', 'title', 'description', 'value', 'payment_method');
 
-            console.log('Showing all products');
+            const [ count ] = await knex('products').count();
+
+            console.log('Showing all ' + count + ' products');
+            res.header('X-total-count', count['count']);
+
             return res.json(results);
+
         } catch(error) {
             next(error);
         }

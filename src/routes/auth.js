@@ -12,7 +12,7 @@ routes
             password: Joi.string().required(),
             // status: Joi.string().max(150),
             // rating: Joi.number().min(0).max(10.0)
-        })
+        }) 
     }), AuthController.register)
 
 module.exports = routes;

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 //Importing all the routes
@@ -7,6 +8,8 @@ const productsRoutes = require('./routes/products');
 const usersRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 
+//CORS for later config with the frontend's address
+app.use(cors());
 app.use(express.json());
 
 //Using all the routes
