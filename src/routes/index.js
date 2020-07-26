@@ -3,7 +3,10 @@ const routes = express.Router();
 
 //Importing the APIs
 const FakeDataAPI = require('../services/FakeDataAPI');
+
+//Importing the micellaneous controllers
 const NerdController = require('../controllers/NerdController');
+const EmailController = require('../controllers/EmailController');
 
 //Basic testing route
 routes.get('/', (req, res) => {
@@ -24,5 +27,8 @@ routes
     .get('/nerds/topics', NerdController.getTopics)
     .get('/nerds/hp', NerdController.singleHarryPotter)
     .get('/nerds/pokemon', NerdController.multiPokemon);
+
+routes
+    .get('/email/test', EmailController.sendTestEmail);
 
 module.exports = routes;
