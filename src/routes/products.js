@@ -4,6 +4,10 @@ const { celebrate, Segments, Joi } = require('celebrate');
 
 const ProductController = require('../controllers/ProductController');
 
+const AuthMiddleware = require('../middlewares/auth');
+
+routes.use(AuthMiddleware);
+
 routes
     .get('/', celebrate({
         [Segments.QUERY]: Joi.object().keys({
