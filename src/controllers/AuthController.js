@@ -16,6 +16,7 @@ module.exports = {
     async register(req, res, next) {
         try {
             const { name, email, password } = req.body;
+            console.log('Heyyy, entrei no método register');
 
             if (await knex('users').where({ email })) {
                 return res.status(400).send({

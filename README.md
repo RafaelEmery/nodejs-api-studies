@@ -8,21 +8,28 @@ The structure of *src* directory:
 
 ## :bulb: Techs and Packages
 
-- [NodeJS](https://nodejs.org/en/)
+- [Visual Studio Code]()
+- [Postman](https://www.postman.com/)
+- [Node.js](https://nodejs.org/en/)
+- [NPM]()
 - [PostgreSQL](https://www.postgresql.org/)
 - [Express.js](https://expressjs.com/pt-br/)
 - [Nodemon](https://nodemon.io/)
 - [Knex.js](http://knexjs.org/)
 - [Celebrate](https://github.com/arb/celebrate)
 - [BCrypt](https://www.npmjs.com/package/bcrypt)
-- [Postman](https://www.postman.com/)
+- [JWT]()
+- [Nodemailer]()
+- [Nerds]()
 
 ## :running: Run the API
  
 Installing all the packages 
+
 ```npm install``` 
 
 Running on *http://localhost:3000*
+
 ```npm start``` 
 
 ## :wrench: Random Features
@@ -76,7 +83,7 @@ exports.seed = function(knex) {
 
 ### Request's validations using Celebrate
 
-To validate the requests made with Postman Software was used the Celebrate package which is basically a middleware validation using Joi:
+To validate the requests made with Postman Software was used the Celebrate package which is basically a middleware  using Joi:
 ```javascript
 //Route for the updating method (PUT)
 route.put('/:id', celebrate({

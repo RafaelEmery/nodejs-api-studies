@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.json');
 
 module.exports = (req, res, next) => {
+    //Getting the token from header of req
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
@@ -10,6 +11,8 @@ module.exports = (req, res, next) => {
         });
     }
 
+    //Splitting the authHeader
+    //Bearer d212ask4342dmas3213asdma4324lkm (Hash code)
     const parts = authHeader.split(' ');
 
     if (!parts.length == 2) {
@@ -18,6 +21,7 @@ module.exports = (req, res, next) => {
         });
     }
 
+    //Getting the two parts from the header
     const [ scheme, token ] = parts;
 
     if (!/^Bearer$^/i.test(scheme)) {

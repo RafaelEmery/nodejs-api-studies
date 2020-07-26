@@ -6,6 +6,7 @@ const ProductController = require('../controllers/ProductController');
 
 const AuthMiddleware = require('../middlewares/auth');
 
+//Using to validate the user
 routes.use(AuthMiddleware);
 
 routes
