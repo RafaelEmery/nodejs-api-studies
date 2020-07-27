@@ -11,29 +11,30 @@ module.exports = (req, res, next) => {
         });
     }
 
-    //Splitting the authHeader
-    //Bearer d212ask4342dmas3213asdma4324lkm (Hash code)
-    const parts = authHeader.split(' ');
+    // //Splitting the authHeader
+    // //Bearer d212ask4342dmas3213asdma4324lkm (Hash code)
+    // const parts = authHeader.split(' ');
 
-    if (!parts.length == 2) {
-        return res.status(401).send({
-            message: 'Token error'
-        });
-    }
+    // if (!parts.length == 2) {
+    //     return res.status(401).send({
+    //         message: 'Token error'
+    //     });
+    // }
 
-    //Getting the two parts from the header
-    const [ scheme, token ] = parts;
+    // //Getting the two parts from the header
+    // const [ scheme, token ] = parts;
 
-    if (!/^Bearer$^/i.test(scheme)) {
-        return res.status(401).send({
-            message: 'Wrong token'
-        });
-    }
-    
+    // if (!/^Bearer$^/i.test(scheme)) {
+    //     return res.status(401).send({
+    //         message: 'Wrong token'
+    //     });
+    // }
+
     jwt.verify(token, authConfig.secret, (error, decoded) => {
+
         if (error) {
             return res.status(401).send({
-                message: 'Invalid token'
+                message: 'Failed to authenticate token'
             });
         }
 
