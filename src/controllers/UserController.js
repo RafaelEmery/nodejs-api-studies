@@ -23,7 +23,7 @@ module.exports = {
                 }
             }
                 
-            const results = await knex('users').select('id', 'name', 'status', 'rating');
+            const results = await knex('users').select('id', 'name', 'email', 'status', 'rating');
 
             console.log('Showing all users');
             return res.json(results);

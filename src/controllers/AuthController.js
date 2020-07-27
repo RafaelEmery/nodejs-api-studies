@@ -1,14 +1,7 @@
-const knex = require('knex');
+const knex = require('../database');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
-const authConfig = require('../config/auth.json');
-
-function generateToken(params = {}) {
-    return jwt.sign(params, authConfig.secret, {
-        expiresIn: 86400    
-    });
-}
+const generateToken = require('../utils/generateToken');
  
 module.exports = {
 
@@ -16,20 +9,24 @@ module.exports = {
     async register(req, res, next) {
         try {
             const { name, email, password } = req.body;
-            console.log('Heyyy, entrei no método register');
 
-            if (await knex('users').where({ email })) {
-                return res.status(400).send({
-                    message: 'This user already exists'
-                });
-            }
+            //Issue (!!!)
+            //The verification below doens't work correctly
+            //When we use the unique() email to prevent repeating, works
+            //But the id counts (don't know why)
+            //Need to look up for fix the verification
+            // if (await knex('users').where({ email }).select()) {
+            //     return res.status(400).send({
+            //         message: 'This user already exists'
+            //     });
+            // }
 
-            const hash = bcrypt.hash(password, 10);
+            const hash = await bcrypt.hash(password, 10);
 
-            await knex('users').insert({
+            const user = await knex('users').insert({
                 name: name,
                 email: email,
-                password: hash,
+                password: hash
             });
 
             return res.send({

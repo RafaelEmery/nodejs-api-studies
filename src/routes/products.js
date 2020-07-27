@@ -4,10 +4,10 @@ const { celebrate, Segments, Joi } = require('celebrate');
 
 const ProductController = require('../controllers/ProductController');
 
-const AuthMiddleware = require('../middlewares/auth');
+// const AuthMiddleware = require('../middlewares/auth');
 
-//Using to validate the user
-routes.use(AuthMiddleware);
+// //Using to validate the user
+// routes.use(AuthMiddleware);
 
 routes
     .get('/', celebrate({
