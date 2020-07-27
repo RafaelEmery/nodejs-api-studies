@@ -1,26 +1,27 @@
-# :green_book: My Personal NodeJS API
+# :green_book: My Personal Node.js API
 
 The ideia is to study and practice about Javascript applications and Node's REST APIs.
 
-The structure of *src* directory:
+The structure of *src* directory (Old image):
 
 ![](assets/src.png)
 
 ## :bulb: Techs and Packages
 
-- [Visual Studio Code]()
+- [Visual Studio Code](https://code.visualstudio.com/)
 - [Postman](https://www.postman.com/)
 - [Node.js](https://nodejs.org/en/)
-- [NPM]()
+- [NPM](https://www.npmjs.com/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Express.js](https://expressjs.com/pt-br/)
 - [Nodemon](https://nodemon.io/)
 - [Knex.js](http://knexjs.org/)
 - [Celebrate](https://github.com/arb/celebrate)
 - [BCrypt](https://www.npmjs.com/package/bcrypt)
-- [JWT]()
-- [Nodemailer]()
-- [Nerds]()
+- [JWT](https://jwt.io/)
+- [Axios](https://github.com/axios/axios)
+- [Nodemailer](https://nodemailer.com/about/)
+- [Nerds](https://github.com/SkyHacks/nerds)
 
 ## :running: Run the API
  
@@ -36,72 +37,32 @@ Running on *http://localhost:3000*
 
 Here are some features made to apply my personal studies.
 
-### Migrations abd Seeds with Knex.js
+### Migrations and Seeds with Knex.js
 
-Simple Migration for products at the PostgreSQL's learning_nodejs database. In this case i test the OneToMany relation and some of Knex.js types for tables:
-```javascript
-//Up function to create products table
-exports.up = knex => knex.schema.createTable('products', table => {
-    table.increments('id');
+Migrations and Seeds for products and users using Knex.js Query Builder and PostgreSQL. I applied mostly random types and OneToMany relationship at the database.
 
-    //OneToMany relationship with user's table
-    table.integer('user_id').references('users.id').notNullable().onDelete('CASCADE');
+:gift: You can access the files at the *database* directory and see the configs at *knexfile.js*.
 
-    table.string('title');
-    table.text('description');
-    table.float('value');
-    table.boolean('available');
-    table.enu('payment_method', ['Cash', 'Credit Card', 'Paypal', 'Gold']);
+### Update timestamp trigger
 
-    table.timestamps(true, true);
-});
-
-//Down function to drop products table
-exports.down = knex => knex.schema.dropTableIfExists('products');
-```
-
-Also worked in Seeds for generating fake testing data in database:
-```javascript
-exports.seed = function(knex) {
-    // Deletes ALL existing entries
-    return knex('products').del()
-        then(function () {
-        // Inserts seed entries
-        return knex('products').insert([
-            { 
-            user_id: 1, 
-            title: "Coleira da Nina",
-            description: "Uma coleira usada pela gata preta mais safada do mundo! A gata não vale nada, mas a coleira vale muito.",
-            value: 1499.99,
-            available: 1,
-            payment_method: 'Gold',
-            },
-        ]);
-    });
-};
-```
+Raw SQL procedure and trigger to update the timestamp *updated_at* in the database products and users. Just read the comments at the database files and *knexfile.js*.
 
 ### Request's validations using Celebrate
 
-To validate the requests made with Postman Software was used the Celebrate package which is basically a middleware  using Joi:
-```javascript
-//Route for the updating method (PUT)
-route.put('/:id', celebrate({
-        //Validating the URL params
-        [Segments.PARAMS]: Joi.object().keys({
-            id: Joi.number().required()
-        }),
-        //Validating the request's body
-        [Segments.BODY]: Joi.object().keys({
-            user_id: Joi.number().required(),
-            title: Joi.string().required(),
-            description: Joi.string().min(15).max(2000),
-            value: Joi.number().required(),
-            available: Joi.boolean(),
-            payment_method: Joi.string().valid('Cash', 'Credit Card', 'Paypal', 'Gold').required()
-        }),
-    }), ProductController.update);
+To validate the requests made with Postman was used the Celebrate package which is basically a middleware using Joi. Very simple! You can find it at *routes*.
 
-```
+### Sending Emails with NodeMailer
+
+I used the NodeMailer package along the [Ethereal Service](https://ethereal.email/) to test some fake emails. 
+
+### Authentication and authorization using JWT
+
+JSON Web Token (JWT) to autenticate and authorize users. To apply in the Controllers was made a middleware for autorize the user.
+
+:gift: If you want to see all the auth stuffs, you'll have to seach for the "auth" files.
+
+### (Not done yet) Consuming APIs using Axios
+
+Using the Axios package to consume my personal [Fake Data API](https://github.com/RafaelEmery/fake-data-api)
 
 Made with :hearts: by [Rafael Emery](https://rafaelemery.github.io)

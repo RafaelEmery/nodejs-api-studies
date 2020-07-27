@@ -11,6 +11,9 @@ module.exports = (req, res, next) => {
         });
     }
 
+    //Issue (!!!)
+    //Need to improve this verfications
+    //Use the auth.json hash in all the tokens
     // //Splitting the authHeader
     // //Bearer d212ask4342dmas3213asdma4324lkm (Hash code)
     // const parts = authHeader.split(' ');
@@ -30,14 +33,14 @@ module.exports = (req, res, next) => {
     //     });
     // }
 
-    jwt.verify(token, authConfig.secret, (error, decoded) => {
-
+    jwt.verify(authHeader, authConfig.secret, (error, decoded) => {
         if (error) {
             return res.status(401).send({
                 message: 'Failed to authenticate token'
             });
         }
 
+        //Save in the req for later use
         req.userId = decoded.id;
         return next();
     });
