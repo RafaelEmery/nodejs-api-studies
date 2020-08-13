@@ -5,7 +5,8 @@
   "repository": "github:RafaelEmery/learning-nodejs-api",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "nodemon src/server.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "Rafael Emery",
@@ -23,6 +24,8 @@
     "pg": "^8.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "jest": "^26.4.0",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
   }
 }

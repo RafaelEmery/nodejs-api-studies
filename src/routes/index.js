@@ -18,6 +18,12 @@ routes.get('/', (req, res) => {
     });
 });
 
+routes.get('/jest', (req, res) => {
+    return res.json({
+        message: "Testing the jest things at home route!"
+    });
+});
+
 routes
     .get('/api/shop', FakeDataAPI.shop)
     // .get('/api/posts', FakeDataAPI.posts)

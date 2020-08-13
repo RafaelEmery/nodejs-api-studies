@@ -35,5 +35,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(3000, () => {
-    console.log('Server Ready at port 3000.');
+    console.log('Server Ready at port ', process.env.PORT || 3000);
 });
