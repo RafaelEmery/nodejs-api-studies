@@ -14,7 +14,11 @@ app.use(cors());
 app.use(express.json());
 
 app.use(fileUpload({
-    createParentPath: true
+    createParentPath: true,
+    //file(s) size is not working
+    limits: { 
+        fileSize: 2 * 1024 * 1024 * 1024 //2MB max file(s) size
+    },
 }));
 
 //Using all the routes

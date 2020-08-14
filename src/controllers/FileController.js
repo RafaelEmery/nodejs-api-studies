@@ -1,4 +1,6 @@
 module.exports = {
+
+    //Using the body form-data at Postman POST request
     async upload(req, res, next) {
         try {
             if(!req.files) {
