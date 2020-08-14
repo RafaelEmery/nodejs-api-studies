@@ -67,6 +67,10 @@ JSON Web Token (JWT) to autenticate and authorize users. To apply in the Control
 
 Usage of Jest package for unit testing at *__test__* directory. So far, my tests are a little bit simple and for the utils functions on *src/utils* directory.
 
+:question: to run the tests
+
+```npm test```
+
 ### Uploading file with express-fileupload
 
 Using the express-fileupload package to upload a single file (so far). Take a look at the *FileController.js* and the post route at the *index.js* at routes directory.
