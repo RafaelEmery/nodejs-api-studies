@@ -1,6 +1,7 @@
 const generateTest = require('../src/utils/generateTest');
 const generateToken = require('../src/utils/generateToken');
 const generateRandomInt = require('../src/utils/generateRandomInt');
+const randomInteger = require('random-int');
 
 beforeAll(async () => {
     console.log('Before all function! TDD stuff with Jest!');
@@ -33,7 +34,7 @@ describe('Starting tests...', () => {
     });
 
     it('Should test the generateToken function (JWT)', () => {
-        const randomId = generateRandomInt();
+        const randomId = randomInteger();
         const jwt = generateToken({ id: randomId });
 
         console.log('JWT: ', jwt);
