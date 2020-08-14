@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const app = express();
 
 //Importing all the routes
@@ -11,6 +12,10 @@ const authRoutes = require('./routes/auth');
 //CORS for later config with the frontend's address
 app.use(cors());
 app.use(express.json());
+
+app.use(fileUpload({
+    createParentPath: true
+}));
 
 //Using all the routes
 app.use('/', indexRoutes);

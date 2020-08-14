@@ -1,6 +1,3 @@
-// const request = require('supertest');
-// const routes = require('../src/routes/index');
-
 const generateTest = require('../src/utils/generateTest');
 const generateToken = require('../src/utils/generateToken');
 const generateRandomInt = require('../src/utils/generateRandomInt');
