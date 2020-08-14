@@ -1,4 +1,4 @@
-# :green_book: My Personal Node.js API
+# :green_book: My Personal Node.js API studies
 
 The ideia is to study and practice about Javascript applications and Node's REST APIs.
 
@@ -22,6 +22,8 @@ The structure of *src* directory (Old image):
 - [Axios](https://github.com/axios/axios)
 - [Nodemailer](https://nodemailer.com/about/)
 - [Nerds](https://github.com/SkyHacks/nerds)
+- [Jest](https://jestjs.io/)
+- [express-fileupload](https://github.com/richardgirges/express-fileupload)
 
 ## :running: Run the API
  
@@ -33,7 +35,7 @@ Running on *http://localhost:3000*
 
 ```npm start``` 
 
-## :wrench: Random Features
+## :wrench: Random and Cool Features
 
 Here are some features made to apply my personal studies.
 
@@ -60,6 +62,14 @@ I used the NodeMailer package along the [Ethereal Service](https://ethereal.emai
 JSON Web Token (JWT) to autenticate and authorize users. To apply in the Controllers was made a middleware for autorize the user.
 
 :gift: If you want to see all the auth stuffs, you'll have to seach for the "auth" files.
+
+### TDD with Jest
+
+Usage of Jest package for unit testing at *__test__* directory. So far, my tests are a little bit simple and for the utils functions on *src/utils* directory.
+
+### Uploading file with express-fileupload
+
+Using the express-fileupload package to upload a single file (so far). Take a look at the *FileController.js* and the post route at the *index.js* at routes directory.
 
 ### (Not done yet) Consuming APIs using Axios
 
