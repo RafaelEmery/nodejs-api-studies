@@ -28,7 +28,7 @@ module.exports = {
         try {
             const { id } = req.params;
             const response = await axios.get(
-                `${url}/posts/:id/comment`, {
+                `${url}/posts/{id}/comment`, {
                     params: {
                         id: id
                     }
@@ -37,6 +37,7 @@ module.exports = {
             return res.json(response.data);
         } catch (error) {
             next(error);
+            console.error(error);
         }
     }
 }

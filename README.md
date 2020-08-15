@@ -24,6 +24,7 @@ The structure of *src* directory (Old image):
 - [Nerds](https://github.com/SkyHacks/nerds)
 - [Jest](https://jestjs.io/)
 - [express-fileupload](https://github.com/richardgirges/express-fileupload)
+- [Commitlint](https://commitlint.js.org/#/) | [Husky](https://github.com/typicode/husky) | [Commitizen](https://github.com/commitizen)
 
 ## :running: Run the API
  
