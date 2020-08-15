@@ -2,7 +2,7 @@ const express = require('express');
 const routes = express.Router();
 
 //Importing the APIs
-const FakeDataAPI = require('../services/FakeDataAPI');
+const FakeData = require('../services/FakeData');
 
 //Importing the micellaneous controllers
 const NerdController = require('../controllers/NerdController');
@@ -24,9 +24,9 @@ routes
             message: "Testing the jest things at home route!"
         });
     })
-    .get('/api/shop', FakeDataAPI.shop)
-    // .get('/api/posts', FakeDataAPI.posts)
-    // .get('/api/posts/:id/comments', FakeDataAPI.postComments);
+    .get('/api/shop', FakeData.shop)
+    .get('/api/posts', FakeData.posts)
+    .get('/api/posts/:id/comments', FakeData.postComments)
     .get('/nerds/topics', NerdController.getTopics)
     .get('/nerds/hp', NerdController.singleHarryPotter)
     .get('/nerds/pokemon', NerdController.multiPokemon)
