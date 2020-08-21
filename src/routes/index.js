@@ -3,6 +3,7 @@ const routes = express.Router();
 
 //Importing the APIs
 const FakeData = require('../services/FakeData');
+const Marvel = require('../services/Marvel');
 
 //Importing the micellaneous controllers
 const NerdController = require('../controllers/NerdController');
@@ -27,6 +28,7 @@ routes
     .get('/api/shop', FakeData.shop)
     .get('/api/posts', FakeData.posts)
     .get('/api/posts/:id/comments', FakeData.postComments)
+    .get('/api/marvel', Marvel.getCharacters)
     .get('/nerds/topics', NerdController.getTopics)
     .get('/nerds/hp', NerdController.singleHarryPotter)
     .get('/nerds/pokemon', NerdController.multiPokemon)
